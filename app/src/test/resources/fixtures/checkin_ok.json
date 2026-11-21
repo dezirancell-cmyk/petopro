@@ -1,0 +1,13 @@
+{
+ "applied": true,
+ "conflict": null,
+ "ok": true,
+ "readiness": {
+  "advice": "وضعیت متوسط است؛ می‌توانی طبقِ برنامه تمرین کنی، ولی از افزایشِ شدیدِ حجم امروز خودداری کن.",
+  "band": "moderate",
+  "band_label": "متوسط",
+  "color": "#ffc107",
+  "pain_flag": false,
+  "score": 70
+ }
+}

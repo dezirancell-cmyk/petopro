@@ -1,0 +1,33 @@
+{
+ "ai_coach_enabled": true,
+ "api_version": 1,
+ "expires_at": "2027-02-18T05:37:35.810403Z",
+ "ok": true,
+ "server_time": "2026-11-20T09:07:35.812284",
+ "token": "FIXTURE_TOKEN",
+ "token_type": "Bearer",
+ "user": {
+  "active": true,
+  "coach_id": 1,
+  "coach_name": "مربی نمونه",
+  "created_at": "2026-11-20 05:37:35",
+  "full_name": "ورزشکار نمونه",
+  "id": 2,
+  "invited_by_name": null,
+  "invited_count": 0,
+  "manager_name": null,
+  "membership_days": null,
+  "membership_days_remaining": null,
+  "membership_days_start": null,
+  "membership_sessions": null,
+  "membership_sessions_total": null,
+  "panel_sub_days": null,
+  "panel_sub_days_remaining": null,
+  "panel_sub_days_start": null,
+  "phone": null,
+  "role": "athlete",
+  "role_fa": "ورزشکار",
+  "self_checkin_allowed": false,
+  "username": "09120000002"
+ }
+}

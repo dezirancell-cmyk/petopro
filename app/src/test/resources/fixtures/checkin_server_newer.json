@@ -1,0 +1,23 @@
+{
+ "applied": false,
+ "checkin": {
+  "energy": 4,
+  "fatigue": 2,
+  "note": "خوب",
+  "pain_level": 0,
+  "sleep_hours": 7.5,
+  "sleep_quality": 4,
+  "soreness": 3,
+  "stress": 2
+ },
+ "conflict": "server_newer",
+ "ok": true,
+ "readiness": {
+  "advice": "وضعیت متوسط است؛ می‌توانی طبقِ برنامه تمرین کنی، ولی از افزایشِ شدیدِ حجم امروز خودداری کن.",
+  "band": "moderate",
+  "band_label": "متوسط",
+  "color": "#ffc107",
+  "pain_flag": false,
+  "score": 70
+ }
+}

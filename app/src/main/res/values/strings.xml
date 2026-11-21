@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">پترو پرو</string>
+
+    <string name="nav_program">برنامه</string>
+    <string name="nav_checkin">چک‌این</string>
+    <string name="nav_settings">تنظیمات</string>
+
+    <string name="login_title">ورود به پترو پرو</string>
+    <string name="login_server">آدرس سرور (مثال: https://example.com)</string>
+    <string name="login_username">نام کاربری (شماره موبایل)</string>
+    <string name="login_password">رمز عبور</string>
+    <string name="login_button">ورود</string>
+    <string name="login_reauth_hint">نشست شما منقضی شده است. برای ادامه دوباره وارد شوید؛ اطلاعات ثبت‌شده‌ی آفلاین حفظ می‌شود.</string>
+    <string name="login_other_user_title">اطلاعات ارسال‌نشده‌ی کاربر دیگر</string>
+    <string name="login_other_user_message">روی این گوشی %1$d مورد ثبت‌شده‌ی ارسال‌نشده از کاربر قبلی وجود دارد. اگر با این حساب وارد شوید، این موارد برای همیشه حذف می‌شوند. ابتدا با حساب قبلی وارد شوید و همگام‌سازی کنید.</string>
+    <string name="login_discard_and_continue">حذف و ورود</string>
+    <string name="cancel">انصراف</string>
+    <string name="ok">تأیید</string>
+    <string name="error_server_url">آدرس سرور نامعتبر است</string>
+    <string name="error_fields_required">همه‌ی فیلدها را پر کنید</string>
+    <string name="error_network">اتصال به سرور برقرار نشد. اینترنت و آدرس سرور را بررسی کنید.</string>
+    <string name="error_login_failed">ورود ناموفق بود</string>
+
+    <string name="banner_session_expired">نشست منقضی شده است — ورود مجدد</string>
+    <string name="banner_pending">%1$d مورد در انتظار ارسال به سرور (برای ارسال لمس کنید)</string>
+
+    <string name="program_empty">هنوز برنامه‌ای برای شما ثبت نشده است. پس از اتصال به اینترنت دوباره همگام‌سازی کنید.</string>
+    <string name="program_day_items">%1$d حرکت</string>
+    <string name="program_title_format">%1$s</string>
+
+    <string name="workout_sets_format">%1$d ست × %2$s</string>
+    <string name="workout_rest_format">استراحت %1$d ثانیه</string>
+    <string name="workout_weight_format">وزنه‌ی برنامه: %1$s کیلوگرم</string>
+    <string name="workout_warmup">گرم‌کردن</string>
+    <string name="workout_weight_hint">وزن (kg)</string>
+    <string name="workout_reps_hint">تکرار</string>
+    <string name="workout_set_number">ست %1$d</string>
+    <string name="workout_media_missing">رسانه‌ی این حرکت هنوز دانلود نشده است</string>
+    <string name="workout_no_media">این حرکت تصویر ندارد</string>
+    <string name="workout_saved_offline_hint">ثبت‌ها در گوشی ذخیره می‌شوند و با اتصال اینترنت به‌صورت خودکار ارسال می‌شوند.</string>
+    <string name="workout_edit_hint">برای ویرایش یک ست ثبت‌شده، ابتدا تیک آن را بردارید و دوباره ثبت کنید.</string>
+    <string name="workout_day_not_found">این روز دیگر در برنامه وجود ندارد (برنامه توسط مربی تغییر کرده است).</string>
+
+    <string name="checkin_title">چک‌این امروز</string>
+    <string name="checkin_sleep_hours">ساعات خواب (۰ تا ۲۴)</string>
+    <string name="checkin_sleep_quality">کیفیت خواب</string>
+    <string name="checkin_energy">سطح انرژی</string>
+    <string name="checkin_fatigue">خستگی</string>
+    <string name="checkin_stress">استرس</string>
+    <string name="checkin_soreness">درد عضلانی</string>
+    <string name="checkin_pain">شدت درد (۰ تا ۱۰)</string>
+    <string name="checkin_note">یادداشت (اختیاری)</string>
+    <string name="checkin_save">ذخیره</string>
+    <string name="checkin_saved_pending">ذخیره شد و پس از اتصال ارسال می‌شود</string>
+    <string name="checkin_saved_synced">ذخیره و ارسال شد</string>
+    <string name="checkin_scale_hint">۱ = خیلی کم، ۵ = خیلی زیاد</string>
+
+    <string name="settings_title">تنظیمات و همگام‌سازی</string>
+    <string name="settings_server">سرور: %1$s</string>
+    <string name="settings_user">کاربر: %1$s (%2$s)</string>
+    <string name="settings_last_sync">آخرین همگام‌سازی موفق: %1$s</string>
+    <string name="settings_never_synced">هنوز همگام‌سازی نشده</string>
+    <string name="settings_pending">در انتظار ارسال: %1$d مورد</string>
+    <string name="settings_media">رسانه‌های ذخیره‌شده: %1$d از %2$d (%3$s)</string>
+    <string name="settings_storage_free">فضای آزاد گوشی: %1$s</string>
+    <string name="settings_sync_now">همگام‌سازی اکنون</string>
+    <string name="settings_sync_running">در حال همگام‌سازی…</string>
+    <string name="settings_clear_media">پاک‌سازی رسانه‌ها</string>
+    <string name="settings_clear_media_done">رسانه‌ها پاک شدند؛ در همگام‌سازی بعدی دوباره دانلود می‌شوند</string>
+    <string name="settings_retry_blocked">تلاش مجدد برای موارد مسدود</string>
+    <string name="settings_issues_title">مشکلات همگام‌سازی</string>
+    <string name="settings_issues_empty">مشکلی وجود ندارد</string>
+    <string name="settings_issue_dismiss_all">حذف همه‌ی موارد مشکل‌دار</string>
+    <string name="settings_logout">خروج از حساب</string>
+    <string name="logout_confirm_title">خروج از حساب</string>
+    <string name="logout_confirm_clean">با خروج، اطلاعات ذخیره‌شده‌ی این حساب از گوشی پاک می‌شود. ادامه می‌دهید؟</string>
+    <string name="logout_confirm_pending">%1$d مورد ثبت‌شده هنوز به سرور ارسال نشده و با خروج برای همیشه حذف می‌شود. بهتر است ابتدا همگام‌سازی کنید. ادامه می‌دهید؟</string>
+    <string name="logout_confirm_yes">خروج و حذف</string>
+    <string name="sync_result_ok">همگام‌سازی انجام شد</string>
+    <string name="sync_result_offline">اتصال به سرور برقرار نشد؛ اطلاعات ذخیره‌شده‌ی گوشی در دسترس است</string>
+    <string name="sync_result_auth">نشست منقضی شده است؛ دوباره وارد شوید</string>
+    <string name="issue_conflict">تعارض: %1$s</string>
+    <string name="issue_rejected">رد شد: %1$s</string>
+    <string name="issue_blocked">مسدود: %1$s</string>
+    <string name="issue_set_log">ثبت ست</string>
+    <string name="issue_checkin">ثبت چک‌این</string>
+    <string name="size_unknown">نامشخص</string>
+</resources>

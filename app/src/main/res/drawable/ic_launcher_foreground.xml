@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- دمبل ساده: میله + وزنه‌ها -->
+    <path android:fillColor="#FFFFFF" android:pathData="M34,52h40v4h-40z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M28,40h6v28h-6z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M74,40h6v28h-6z" />
+    <path android:fillColor="#FF8F00" android:pathData="M22,46h6v16h-6z" />
+    <path android:fillColor="#FF8F00" android:pathData="M80,46h6v16h-6z" />
+</vector>

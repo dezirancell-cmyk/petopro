@@ -1,0 +1,15 @@
+{
+ "api_version": 1,
+ "app_version": "511",
+ "idempotency_header": "X-Idempotency-Key",
+ "ok": true,
+ "online_only_features": [
+  "ai_coach",
+  "library_sync",
+  "body_analysis_ai",
+  "translate"
+ ],
+ "push_enabled": false,
+ "server_time": "2026-11-20T09:07:35.936577",
+ "token_ttl_days": 90
+}

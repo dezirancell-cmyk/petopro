@@ -1,0 +1,18 @@
+{
+ "actual_rest_seconds": null,
+ "calories": null,
+ "completion_pct": 100,
+ "done": true,
+ "est_1rm": 80.0,
+ "is_pr": true,
+ "note": null,
+ "ok": true,
+ "pain_level": null,
+ "prev_best_1rm": null,
+ "remapped_item_id": null,
+ "reps_done": 10,
+ "rpe": null,
+ "set_time_seconds": null,
+ "unchanged": false,
+ "weight_kg": 60.0
+}

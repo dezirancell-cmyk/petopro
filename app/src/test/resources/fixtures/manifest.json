@@ -1,0 +1,18 @@
+{
+ "athlete_id": 2,
+ "media": {
+  "count": 2,
+  "signature": "3c8d1cd174b9f015"
+ },
+ "ok": true,
+ "programs": [
+  {
+   "active": true,
+   "hash": "54116a7e456ec14e",
+   "id": 1,
+   "title": "برنامه A"
+  }
+ ],
+ "server_time": "2026-11-20T09:07:35.905545",
+ "unread_notifications": 1
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:textColor="@color/brand_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textServer"
+            style="@style/SettingsLine"
+            android:layoutDirection="ltr"
+            android:textAlignment="viewStart" />
+        <TextView android:id="@+id/textUser" style="@style/SettingsLine" />
+        <TextView android:id="@+id/textLastSync" style="@style/SettingsLine" />
+        <TextView android:id="@+id/textPending" style="@style/SettingsLine" />
+        <TextView android:id="@+id/textMedia" style="@style/SettingsLine" />
+        <TextView android:id="@+id/textStorage" style="@style/SettingsLine" />
+
+        <ProgressBar
+            android:id="@+id/progressSync"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/settings_sync_now" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRetryBlocked"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_retry_blocked" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonClearMedia"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_clear_media" />
+
+        <TextView
+            android:id="@+id/textIssuesTitle"
+            style="@style/SettingsLine"
+            android:layout_marginTop="20dp"
+            android:text="@string/settings_issues_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textIssuesEmpty"
+            style="@style/SettingsLine"
+            android:text="@string/settings_issues_empty" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerIssues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDismissIssues"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_issue_dismiss_all"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonLogout"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/settings_logout" />
+    </LinearLayout>
+</ScrollView>

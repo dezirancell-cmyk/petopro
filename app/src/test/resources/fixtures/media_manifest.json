@@ -1,0 +1,29 @@
+{
+ "athlete_id": 2,
+ "count": 2,
+ "media": [
+  {
+   "exercise_ids": [
+    1
+   ],
+   "exists": true,
+   "kind": "gif",
+   "local": true,
+   "mtime": 1795153055,
+   "sha256": "f828de83deb9e50b8640967e2673f893965d74eba383f82573ea7d85fd25cb38",
+   "size": 206,
+   "url": "/static/library_cache_media/animated/0001.gif"
+  },
+  {
+   "exercise_ids": [
+    2
+   ],
+   "exists": true,
+   "kind": "gif",
+   "local": false,
+   "url": "https://example.org/x.gif"
+  }
+ ],
+ "ok": true,
+ "total_bytes": 206
+}
