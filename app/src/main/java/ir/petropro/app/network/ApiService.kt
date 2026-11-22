@@ -40,6 +40,34 @@ interface ApiService {
     @GET("api/sets/today")
     suspend fun setsForDate(@Query("date") date: String): Response<SetsTodayResponse>
 
+    @POST("api/mobile/devices")
+    suspend fun registerDevice(@Body body: DeviceRegisterRequest): Response<OkResponse>
+
+    @GET("api/mobile/notifications")
+    suspend fun notifications(
+        @Query("after_id") afterId: Int? = null,
+        @Query("limit") limit: Int = 100,
+    ): Response<NotificationsResponse>
+
+    @GET("api/injury-reports")
+    suspend fun injuryReports(): Response<InjuryListResponse>
+
+    @GET("api/injury-reports/{id}/messages")
+    suspend fun injuryMessages(@Path("id") id: Int): Response<InjuryMessagesResponse>
+
+    @POST("api/injury-reports")
+    suspend fun createInjury(
+        @Header("X-Idempotency-Key") key: String,
+        @Body body: InjuryCreateRequest,
+    ): Response<OkResponse>
+
+    @POST("api/injury-reports/{id}/messages")
+    suspend fun sendInjuryMessage(
+        @Path("id") id: Int,
+        @Header("X-Idempotency-Key") key: String,
+        @Body body: InjuryMessageRequest,
+    ): Response<OkResponse>
+
     /** ارسال عملیاتِ Outbox: مسیر و بدنه‌ی JSON از دیتابیس می‌آید؛ کلید یکتا = X-Idempotency-Key */
     @POST
     suspend fun postJson(

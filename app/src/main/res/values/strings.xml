@@ -86,4 +86,50 @@
     <string name="issue_set_log">ثبت ست</string>
     <string name="issue_checkin">ثبت چک‌این</string>
     <string name="size_unknown">نامشخص</string>
+
+    <string name="nav_notifications">اعلان‌ها</string>
+
+    <string name="channel_injury">گزارش آسیب‌دیدگی</string>
+    <string name="channel_program">برنامه و رژیم</string>
+    <string name="channel_announcements">اطلاعیه‌ها</string>
+    <string name="channel_reminders">یادآورها</string>
+    <string name="channel_general">عمومی</string>
+
+    <string name="notif_title">اعلان‌ها</string>
+    <string name="notif_empty">اعلانی ندارید</string>
+    <string name="notif_mark_all">همه را خوانده‌شده کن</string>
+    <string name="notif_refresh_failed">دریافت اعلان‌ها ناموفق بود؛ اعلان‌های ذخیره‌شده نمایش داده می‌شوند</string>
+    <string name="reminder_workout_title">وقت تمرین است 💪</string>
+    <string name="reminder_workout_body">امروز هنوز تمرینی ثبت نکرده‌اید</string>
+    <string name="reminder_checkin_title">چک‌این امروز را فراموش نکنید</string>
+    <string name="reminder_checkin_body">چند ثانیه برای ثبت خواب و انرژی امروز وقت بگذارید</string>
+
+    <string name="settings_notif_section">اعلان‌ها و یادآورها</string>
+    <string name="settings_push_switch">دریافت اعلان از سرور (Push)</string>
+    <string name="settings_push_status_ok">Push فعال است</string>
+    <string name="settings_push_status_no_firebase">Push در این نسخه تنظیم نشده است (فایل google-services.json گذاشته نشده)؛ اعلان‌ها هنگام باز کردن برنامه در صندوق اعلان‌ها دریافت می‌شوند.</string>
+    <string name="settings_push_status_no_permission">اجازه‌ی نمایش اعلان داده نشده است</string>
+    <string name="settings_permission_button">فعال‌سازی اجازه‌ی اعلان</string>
+    <string name="settings_reminder_workout">یادآور روزانه‌ی تمرین</string>
+    <string name="settings_reminder_checkin">یادآور روزانه‌ی چک‌این</string>
+    <string name="settings_reminder_time">ساعت: %1$s</string>
+    <string name="settings_reminder_note">یادآورها روی خود گوشی ساخته می‌شوند و بدون اینترنت هم کار می‌کنند؛ اگر کار آن روز را انجام داده باشید نمایش داده نمی‌شوند. زمان دقیق ممکن است چند دقیقه جابه‌جا شود.</string>
+    <string name="settings_injury_button">گزارش‌های آسیب‌دیدگی</string>
+
+    <string name="injury_title">گزارش‌های آسیب‌دیدگی</string>
+    <string name="injury_new">گزارش جدید</string>
+    <string name="injury_empty">گزارشی ثبت نشده است</string>
+    <string name="injury_online_only">این بخش به اینترنت نیاز دارد. اتصال را بررسی و دوباره تلاش کنید.</string>
+    <string name="injury_unread">جدید</string>
+    <string name="injury_new_title">گزارش آسیب‌دیدگی</string>
+    <string name="injury_hint_exercise">نام حرکت (اختیاری)</string>
+    <string name="injury_hint_description">توضیح مشکل</string>
+    <string name="injury_send">ارسال</string>
+    <string name="injury_detail_title">گفتگوی گزارش</string>
+    <string name="injury_message_hint">پیام شما…</string>
+    <string name="injury_sent_ok">ارسال شد</string>
+    <string name="injury_error_generic">ارسال ناموفق بود</string>
+    <string name="injury_error_empty">متن را وارد کنید</string>
+    <string name="injury_status_format">وضعیت: %1$s</string>
+    <string name="injury_sender_you">شما</string>
 </resources>

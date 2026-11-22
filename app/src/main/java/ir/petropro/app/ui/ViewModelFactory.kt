@@ -12,6 +12,7 @@ class ViewModelFactory(private val container: AppContainer, private val dayId: I
             modelClass.isAssignableFrom(ProgramViewModel::class.java) -> ProgramViewModel(container)
             modelClass.isAssignableFrom(WorkoutViewModel::class.java) -> WorkoutViewModel(container, dayId)
             modelClass.isAssignableFrom(CheckinViewModel::class.java) -> CheckinViewModel(container)
+            modelClass.isAssignableFrom(NotificationsViewModel::class.java) -> NotificationsViewModel(container)
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> SettingsViewModel(container)
             else -> throw IllegalArgumentException("ViewModel ناشناخته: ${modelClass.name}")
         }

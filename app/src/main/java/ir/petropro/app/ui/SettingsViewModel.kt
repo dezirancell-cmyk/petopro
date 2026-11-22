@@ -80,4 +80,18 @@ class SettingsViewModel(private val c: AppContainer) : ViewModel() {
     }
 
     val sessionStore get() = c.sessionStore
+
+    fun firebaseAvailable(): Boolean = c.pushManager.isFirebaseAvailable()
+
+    fun registerDevice() = c.scheduler.registerDevice()
+
+    fun setPush(enabled: Boolean) {
+        c.sessionStore.pushEnabled = enabled
+        c.scheduler.registerDevice() // سرور برای این دستگاه Push نمی‌فرستد/می‌فرستد
+    }
+
+    fun setReminder(kind: String, enabled: Boolean, hour: Int, minute: Int) {
+        c.sessionStore.setReminder(kind, enabled, hour, minute)
+        c.reminders.schedule(kind)
+    }
 }

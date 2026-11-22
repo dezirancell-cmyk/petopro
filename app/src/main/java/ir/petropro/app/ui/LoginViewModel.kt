@@ -32,6 +32,8 @@ class LoginViewModel(private val c: AppContainer) : ViewModel() {
                 is LoginResult.Success -> {
                     c.scheduler.schedulePeriodic()
                     c.scheduler.kickOutbox()
+                    c.scheduler.registerDevice()
+                    c.reminders.rescheduleAll()
                     LoginUiState.Success
                 }
                 is LoginResult.Failure -> LoginUiState.Error(r.message)

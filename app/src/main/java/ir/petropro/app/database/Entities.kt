@@ -101,6 +101,8 @@ object OutboxState {
 object OutboxType {
     const val SET_LOG = "SET_LOG"
     const val CHECKIN = "CHECKIN"
+    /** علامت‌گذاری اعلان‌ها به‌عنوان خوانده‌شده؛ مهم نیست و در شمارش «ارسال‌نشده‌ها» نمی‌آید */
+    const val NOTIF_READ = "NOTIF_READ"
 }
 
 /** صف عملیات آفلاین. ترتیب ارسال = ترتیب seq. idemKey همان X-Idempotency-Key است و هرگز عوض نمی‌شود. */
@@ -143,3 +145,14 @@ data class MediaEntity(
 )
 
 data class DoneMedia(val url: String, val localPath: String?)
+
+@Entity(tableName = "notifications")
+data class NotificationEntity(
+    @PrimaryKey val id: Int,
+    val kind: String,
+    val title: String,
+    val body: String?,
+    val route: String?,
+    val createdAt: String,
+    val isRead: Boolean,
+)

@@ -52,6 +52,15 @@ class SyncScheduler(private val context: Context) {
         )
     }
 
+    /** ثبت دستگاه/توکن FCM روی سرور؛ در قطعی با تأخیر نمایی تکرار می‌شود */
+    fun registerDevice() {
+        wm.enqueueUniqueWork(
+            "device-register", ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<DeviceRegistrationWorker>().setConstraints(needsNetwork)
+                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS).build()
+        )
+    }
+
     fun cancelAll() {
         wm.cancelAllWork()
     }
@@ -86,5 +95,12 @@ class MediaDownloadWorker(context: Context, params: WorkerParameters) : Coroutin
             DownloadResult.NETWORK_ERROR -> Result.retry()
             else -> Result.success()
         }
+    }
+}
+
+class DeviceRegistrationWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
+    override suspend fun doWork(): Result {
+        val container = (applicationContext as PetroProApp).container
+        return if (container.pushManager.registerDevice()) Result.success() else Result.retry()
     }
 }

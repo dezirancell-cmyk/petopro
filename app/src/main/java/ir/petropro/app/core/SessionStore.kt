@@ -76,6 +76,23 @@ class SessionStore(private val context: Context) {
         get() = plain.getLong(KEY_LAST_SYNC, 0L)
         set(value) = plain.edit().putLong(KEY_LAST_SYNC, value).apply()
 
+    /** کاربر می‌تواند Push را خاموش کند (به سرور هم اعلام می‌شود تا برای این دستگاه نفرستد) */
+    var pushEnabled: Boolean
+        get() = plain.getBoolean(KEY_PUSH, true)
+        set(value) = plain.edit().putBoolean(KEY_PUSH, value).apply()
+
+    var askedNotificationPermission: Boolean
+        get() = plain.getBoolean(KEY_ASKED_PERM, false)
+        set(value) = plain.edit().putBoolean(KEY_ASKED_PERM, value).apply()
+
+    fun reminderEnabled(kind: String): Boolean = plain.getBoolean("reminder_${kind}_on", false)
+    fun reminderHour(kind: String): Int = plain.getInt("reminder_${kind}_h", if (kind == KIND_CHECKIN) 9 else 17)
+    fun reminderMinute(kind: String): Int = plain.getInt("reminder_${kind}_m", 0)
+    fun setReminder(kind: String, enabled: Boolean, hour: Int, minute: Int) {
+        plain.edit().putBoolean("reminder_${kind}_on", enabled).putInt("reminder_${kind}_h", hour)
+            .putInt("reminder_${kind}_m", minute).apply()
+    }
+
     val isLoggedIn: Boolean get() = !token.isNullOrEmpty()
 
     fun saveSession(token: String, userId: Int, username: String, fullName: String?, role: String) {
@@ -106,7 +123,11 @@ class SessionStore(private val context: Context) {
         _sessionExpired.value = false
     }
 
-    private companion object {
+    companion object {
+        const val KIND_WORKOUT = "workout"
+        const val KIND_CHECKIN = "checkin"
+        const val KEY_PUSH = "push_enabled"
+        const val KEY_ASKED_PERM = "asked_notif_permission"
         const val KEY_SERVER = "server_url"
         const val KEY_DEVICE = "device_id"
         const val KEY_TOKEN = "token"

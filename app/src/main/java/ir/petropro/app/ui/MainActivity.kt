@@ -1,20 +1,27 @@
 package ir.petropro.app.ui
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.lifecycle.Lifecycle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import ir.petropro.app.R
-import ir.petropro.app.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.combine
+import ir.petropro.app.PetroProApp
+import ir.petropro.app.core.AppContainer
+import ir.petropro.app.notifications.NotificationHelper
+import ir.petropro.app.ui.theme.PetroTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class MainActivity : BaseActivity() {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : ComponentActivity() {
+    private val container: AppContainer get() = (application as PetroProApp).container
+    private val route = MutableStateFlow<String?>(null)
+
+    private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+        container.scheduler.registerDevice()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,56 +32,49 @@ class MainActivity : BaseActivity() {
             finish()
             return
         }
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.bottomNav.setOnItemSelectedListener { item ->
-            val fragment: Fragment = when (item.itemId) {
-                R.id.nav_program -> ProgramFragment()
-                R.id.nav_checkin -> CheckinFragment()
-                else -> SettingsFragment()
-            }
-            supportFragmentManager.commit { replace(R.id.fragmentContainer, fragment) }
-            true
+        if (savedInstanceState == null) {
+            handleIntent(intent)
+            askNotificationPermissionOnce()
         }
-        if (savedInstanceState == null) binding.bottomNav.selectedItemId = R.id.nav_program
-
-        binding.bannerText.setOnClickListener {
-            if (store.sessionExpired.value) openReauth() else lifecycleScope.launch { container.syncManager.syncAll() }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                combine(store.sessionExpired, container.database.outboxDao().observeUnsentCount()) { expired, pending ->
-                    expired to pending
-                }.collect { (expired, pending) ->
-                    when {
-                        expired -> {
-                            binding.bannerText.setBackgroundResource(R.color.banner_error)
-                            binding.bannerText.setText(R.string.banner_session_expired)
-                            binding.bannerText.visibility = View.VISIBLE
-                        }
-                        pending > 0 -> {
-                            binding.bannerText.setBackgroundResource(R.color.banner_warning)
-                            binding.bannerText.text = getString(R.string.banner_pending, pending)
-                            binding.bannerText.visibility = View.VISIBLE
-                        }
-                        else -> binding.bannerText.visibility = View.GONE
-                    }
-                }
+        setContent {
+            PetroTheme {
+                AppRoot(container, route) { route.value = null }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (container.sessionStore.isLoggedIn) handleIntent(intent)
     }
 
     override fun onStart() {
         super.onStart()
         // با هر ورود به برنامه یک همگام‌سازی؛ بدون اینترنت بی‌صدا شکست می‌خورد و داده‌ی محلی در دسترس می‌ماند
-        if (container.sessionStore.isLoggedIn) {
-            lifecycleScope.launch { container.syncManager.syncAll() }
-        }
+        if (container.sessionStore.isLoggedIn) lifecycleScope.launch { container.syncManager.syncAll() }
     }
 
-    private fun openReauth() {
-        startActivity(Intent(this, LoginActivity::class.java).putExtra(LoginActivity.EXTRA_REAUTH, true))
+    /** لمس اعلان (محلی، FCM در پس‌زمینه یا پیش‌زمینه) → extras شامل route و nid */
+    private fun handleIntent(intent: Intent?) {
+        val r = intent?.getStringExtra(NotificationHelper.EXTRA_ROUTE) ?: return
+        val nid = intent.getStringExtra(NotificationHelper.EXTRA_NID)?.toIntOrNull()
+        intent.removeExtra(NotificationHelper.EXTRA_ROUTE)
+        intent.removeExtra(NotificationHelper.EXTRA_NID)
+        if (nid != null) {
+            lifecycleScope.launch {
+                container.notificationRepository.markRead(listOf(nid))
+                container.scheduler.kickOutbox()
+            }
+        }
+        route.value = r
+    }
+
+    private fun askNotificationPermissionOnce() {
+        val store = container.sessionStore
+        if (Build.VERSION.SDK_INT >= 33 && !store.askedNotificationPermission && !NotificationHelper.canPost(this)) {
+            store.askedNotificationPermission = true
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 }

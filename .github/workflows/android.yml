@@ -1,0 +1,57 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # gradle-wrapper.jar در پروژه نیست؛ همین اکشن Gradle 8.7 را نصب می‌کند
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.7
+
+      # فونت و آیکون‌ها دقیقاً هم‌نسخه‌ی وب (Vazirmatn v33.003 و Tabler 2.47.0)؛ اگر دانلود نشد، برنامه با فونت/آیکون جایگزین هم کار می‌کند
+      - name: Fetch Vazirmatn font and Tabler icons
+        continue-on-error: true
+        run: |
+          mkdir -p app/src/main/assets/fonts /tmp/tabler
+          base=https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/ttf
+          curl -fsSL "$base/Vazirmatn-Regular.ttf" -o app/src/main/assets/fonts/Vazirmatn-Regular.ttf
+          curl -fsSL "$base/Vazirmatn-Bold.ttf" -o app/src/main/assets/fonts/Vazirmatn-Bold.ttf
+          curl -fsSL https://registry.npmjs.org/@tabler/icons-webfont/-/icons-webfont-2.47.0.tgz | tar -xz -C /tmp/tabler
+          css=$(find /tmp/tabler -name 'tabler-icons.min.css' | head -1)
+          ttf=$(find /tmp/tabler -name 'tabler-icons.ttf' | head -1)
+          cp "$ttf" app/src/main/assets/fonts/tabler-icons.ttf
+          python3 scripts/gen_tabler_map.py "$css" app/src/main/assets/tabler-map.json
+          ls -la app/src/main/assets app/src/main/assets/fonts
+
+      - name: Unit tests
+        run: gradle testDebugUnitTest --stacktrace
+
+      - name: Build debug APK
+        run: gradle assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: petropro-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: app/build/reports/tests/

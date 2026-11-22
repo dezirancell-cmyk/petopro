@@ -3,6 +3,10 @@ package ir.petropro.app
 import ir.petropro.app.network.ApiErrors
 import ir.petropro.app.network.ApiJson
 import ir.petropro.app.network.CheckinResponse
+import ir.petropro.app.network.InjuryListResponse
+import ir.petropro.app.network.InjuryMessagesResponse
+import ir.petropro.app.network.NotificationsResponse
+import ir.petropro.app.network.OkResponse
 import ir.petropro.app.network.LoginResponse
 import ir.petropro.app.network.ManifestResponse
 import ir.petropro.app.network.MediaManifestResponse
@@ -15,6 +19,8 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 import org.junit.Test
 
 /** نمونه‌ها (fixtures) با اجرای واقعیِ کد سرور نسخه ۵۱۱ ساخته شده‌اند؛ این تست‌ها قرارداد DTOها را با سرور تضمین می‌کنند. */
@@ -98,5 +104,28 @@ class ContractParsingTest {
         assertFalse("null فیلدها نباید ارسال شوند", text.contains("\"rpe\""))
         // بازگشت‌پذیری (Outbox بدنه را به‌صورت متن ذخیره و بعداً دوباره می‌خواند)
         assertEquals(req, json.decodeFromString(SetLogRequest.serializer(), text))
+    }
+
+    @Test fun notificationsAndDevices() {
+        val n = json.decodeFromString(NotificationsResponse.serializer(), fixture("notifications_list"))
+        val first = n.notifications[0]
+        assertEquals("injury_reply", first.kind)
+        // data شامل عدد (report_id) و متن (route) است
+        assertEquals("injury/1", (first.data["route"] as JsonPrimitive).contentOrNull)
+        assertEquals(1, n.unreadCount)
+        assertFalse(first.read)
+        assertTrue(json.decodeFromString(OkResponse.serializer(), fixture("device_register")).ok)
+        assertEquals(0, json.decodeFromString(NotificationsResponse.serializer(), "{\"ok\":true,\"unread_count\":0}").unreadCount)
+    }
+
+    @Test fun injury() {
+        val list = json.decodeFromString(InjuryListResponse.serializer(), fixture("injury_list"))
+        assertEquals(1, list.reports.size)
+        assertEquals("اسکوات", list.reports[0].exerciseName)
+        assertTrue(list.reports[0].unread)
+        val conv = json.decodeFromString(InjuryMessagesResponse.serializer(), fixture("injury_messages"))
+        assertEquals("coach", conv.messages.last().senderRole)
+        assertNotNull(conv.report)
+        assertEquals(1, json.decodeFromString(OkResponse.serializer(), fixture("injury_create")).id)
     }
 }

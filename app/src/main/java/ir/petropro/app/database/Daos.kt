@@ -62,6 +62,9 @@ interface SetLogDao {
     @Query("DELETE FROM set_logs WHERE itemId = :itemId AND setNumber = :setNumber AND date = :date")
     suspend fun delete(itemId: Int, setNumber: Int, date: String)
 
+    @Query("SELECT COUNT(*) FROM set_logs WHERE date = :date AND done = 1")
+    suspend fun countDone(date: String): Int
+
     @Query("UPDATE set_logs SET dirty = 0 WHERE itemId = :itemId AND setNumber = :setNumber AND date = :date")
     suspend fun markClean(itemId: Int, setNumber: Int, date: String)
 
@@ -96,10 +99,10 @@ interface OutboxDao {
     @Query("DELETE FROM outbox WHERE seq = :seq")
     suspend fun delete(seq: Long)
 
-    @Query("SELECT COUNT(*) FROM outbox WHERE state IN ('PENDING','BLOCKED')")
+    @Query("SELECT COUNT(*) FROM outbox WHERE state IN ('PENDING','BLOCKED') AND type != 'NOTIF_READ'")
     fun observeUnsentCount(): Flow<Int>
 
-    @Query("SELECT COUNT(*) FROM outbox WHERE state IN ('PENDING','BLOCKED')")
+    @Query("SELECT COUNT(*) FROM outbox WHERE state IN ('PENDING','BLOCKED') AND type != 'NOTIF_READ'")
     suspend fun unsentCount(): Int
 
     @Query("SELECT COUNT(*) FROM outbox WHERE state = 'PENDING' AND refKey = :refKey AND seq > :seq")
@@ -152,4 +155,28 @@ interface MediaDao {
 
     @Query("SELECT COALESCE(SUM(sizeBytes), 0) FROM media WHERE state = 'DONE'")
     fun observeDoneBytes(): Flow<Long>
+}
+
+@Dao
+interface NotificationDao {
+    @Query("SELECT * FROM notifications ORDER BY id DESC")
+    fun observeAll(): Flow<List<NotificationEntity>>
+
+    @Query("SELECT COUNT(*) FROM notifications WHERE isRead = 0")
+    fun observeUnreadCount(): Flow<Int>
+
+    @Query("SELECT COALESCE(MAX(id), 0) FROM notifications")
+    suspend fun maxId(): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(items: List<NotificationEntity>)
+
+    @Query("UPDATE notifications SET isRead = 1 WHERE id IN (:ids)")
+    suspend fun markRead(ids: List<Int>)
+
+    @Query("UPDATE notifications SET isRead = 1")
+    suspend fun markAllRead()
+
+    @Query("SELECT id FROM notifications WHERE isRead = 0")
+    suspend fun unreadIds(): List<Int>
 }

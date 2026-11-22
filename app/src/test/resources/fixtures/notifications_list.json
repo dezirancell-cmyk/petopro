@@ -1,0 +1,19 @@
+{
+ "has_more": false,
+ "notifications": [
+  {
+   "body": "استراحت کن",
+   "created_at": "2026-11-20T21:08:11.804667",
+   "data": {
+    "report_id": 1,
+    "route": "injury/1"
+   },
+   "id": 2,
+   "kind": "injury_reply",
+   "read": false,
+   "title": "پاسخ مربی به گزارش آسیب‌دیدگی"
+  }
+ ],
+ "ok": true,
+ "unread_count": 1
+}

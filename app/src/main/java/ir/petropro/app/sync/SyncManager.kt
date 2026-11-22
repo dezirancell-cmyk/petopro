@@ -2,6 +2,7 @@ package ir.petropro.app.sync
 
 import ir.petropro.app.core.SessionStore
 import ir.petropro.app.core.TimeUtils
+import ir.petropro.app.data.NotificationRepository
 import ir.petropro.app.data.ProgramRepository
 import ir.petropro.app.data.RefreshResult
 import ir.petropro.app.data.WorkoutRepository
@@ -22,6 +23,7 @@ class SyncManager(
     private val workout: WorkoutRepository,
     private val media: MediaCacheManager,
     private val scheduler: SyncScheduler,
+    private val notifications: NotificationRepository,
 ) {
     private val mutex = Mutex()
     private val _running = MutableStateFlow(false)
@@ -46,6 +48,7 @@ class SyncManager(
             }
             workout.pullServerState(listOf(TimeUtils.todayTehran(), TimeUtils.yesterdayTehran()))
             media.refreshManifest()
+            notifications.refresh() // ناموفق بودنِ اعلان‌ها همگام‌سازی را شکست نمی‌دهد
             store.lastSyncMillis = System.currentTimeMillis()
             scheduler.enqueueMediaDownload()
             SyncOutcome.OK

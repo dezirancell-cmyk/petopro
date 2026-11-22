@@ -208,3 +208,83 @@ data class CheckinValuesDto(
 
 @Serializable
 data class CheckinTodayResponse(val ok: Boolean = false, val checkin: CheckinValuesDto? = null)
+
+// ---------------- فاز ۳: اعلان‌ها، دستگاه، گزارش آسیب‌دیدگی ----------------
+
+@Serializable
+data class DeviceRegisterRequest(
+    @SerialName("device_id") val deviceId: String,
+    @SerialName("fcm_token") val fcmToken: String? = null,
+    val platform: String = "android",
+    @SerialName("app_version") val appVersion: String? = null,
+    @SerialName("notifications_enabled") val notificationsEnabled: Boolean = true,
+)
+
+@Serializable
+data class OkResponse(val ok: Boolean = false, val error: String? = null, val id: Int? = null)
+
+@Serializable
+data class NotificationDto(
+    val id: Int,
+    val kind: String = "general",
+    val title: String = "",
+    val body: String? = null,
+    /** مقادیر ممکن است عدد یا متن باشند (مثل report_id و route) */
+    val data: Map<String, JsonElement> = emptyMap(),
+    @SerialName("created_at") val createdAt: String = "",
+    val read: Boolean = false,
+)
+
+@Serializable
+data class NotificationsResponse(
+    val ok: Boolean = false,
+    val notifications: List<NotificationDto> = emptyList(),
+    @SerialName("unread_count") val unreadCount: Int = 0,
+    @SerialName("has_more") val hasMore: Boolean = false,
+)
+
+@Serializable
+data class NotificationsReadRequest(val ids: List<Int>? = null, val all: Boolean? = null)
+
+@Serializable
+data class InjuryReportDto(
+    val id: Int,
+    @SerialName("athlete_id") val athleteId: Int = 0,
+    @SerialName("athlete_name") val athleteName: String? = null,
+    @SerialName("exercise_name") val exerciseName: String? = null,
+    val description: String = "",
+    val status: String = "",
+    @SerialName("status_fa") val statusFa: String = "",
+    @SerialName("created_at") val createdAt: String = "",
+    @SerialName("last_message_role") val lastMessageRole: String? = null,
+    val unread: Boolean = false,
+)
+
+@Serializable
+data class InjuryListResponse(val ok: Boolean = false, val reports: List<InjuryReportDto> = emptyList())
+
+@Serializable
+data class InjuryMessageDto(
+    val id: Int,
+    @SerialName("sender_id") val senderId: Int = 0,
+    @SerialName("sender_role") val senderRole: String = "",
+    @SerialName("sender_name") val senderName: String? = null,
+    val message: String = "",
+    @SerialName("created_at") val createdAt: String = "",
+)
+
+@Serializable
+data class InjuryMessagesResponse(
+    val ok: Boolean = false,
+    val messages: List<InjuryMessageDto> = emptyList(),
+    val report: InjuryReportDto? = null,
+)
+
+@Serializable
+data class InjuryCreateRequest(
+    val description: String,
+    @SerialName("exercise_name") val exerciseName: String? = null,
+)
+
+@Serializable
+data class InjuryMessageRequest(val message: String)
