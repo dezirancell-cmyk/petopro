@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- رنگ‌ها دقیقاً از :root وب (--bg و --bg-2) -->
+    <!-- رنگ‌ها دقیقاً از :root وب (bg و bg-2) -->
     <style name="Theme.PetroPro" parent="android:Theme.Material.NoActionBar">
         <item name="android:windowBackground">#0F1420</item>
         <item name="android:statusBarColor">#0F1420</item>
